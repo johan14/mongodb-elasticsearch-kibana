@@ -1,0 +1,38 @@
+mongodb:
+  hostname: mongodb
+  image: mongo
+  volumes:
+    - ./mongodb:/data
+  ports:
+    - 27017:27017
+  command: mongod --replSet myreplset
+
+mongodbinitialize:
+  build: ./mongodb-initialize
+  links:
+    - mongodb  
+  command: mongo --host mongodb --eval 'rs.initiate()'
+
+elasticsearch:
+  image: elasticsearch:5.6.16
+  environment:
+    - discovery.type=single-node
+  ports:
+    - 9200:9200
+    - 9300:9300
+  volumes:
+    - ./elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    - ./elasticsearch/data:/usr/share/elasticsearch/data  
+
+kibana:
+  image: kibana:5.6.16
+  ports:
+    - 5601:5601
+  links:
+    - elasticsearch
+
+mongodbconnector:
+  build: ./mongodb-connector
+  links:
+    - mongodb
+    - elasticsearch

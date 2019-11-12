@@ -1,0 +1,2 @@
+action.auto_create_index : true
+network.bind_host : "0"
