@@ -1,6 +1,16 @@
-MongoDB - ElasticSearch - Kibana Setup
+# MongoDB - ElasticSearch - Kibana Setup
 
-Intro
+## Setup
 Stop any processes listening on ports : 27017 (MongoDB), 9200 (ES), 5601 (Kibana)
 
-Start the services by using : docker-compose up
+```service {SERVICENAME} stop```
+## Start
+
+Start the services by using : 
+
+```docker-compose up```
+## Stop
+
+Stop the services by using : 
+
+```docker-compose stop```
